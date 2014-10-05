@@ -28,7 +28,7 @@ def main(argv):
     #ricaviamo i link all interno della pagina
     regexp = buildRegex(key)
     links = regexp.finditer(html)
-    #iniziamo a costruire la nostra lista di link
+    #costruiamo la lista giusta senza doppioni
     buildLinkList(links)
 
 
@@ -51,6 +51,7 @@ def buildRegex(key):
     return re.compile(r'' + regex)
 
 def buildLinkList(links):
+    #iniziamo a costruire la lista
     linkList = []
     #ricaviamo la parte di link interessante depurando lla stringa da parti non volute
     for link in links:
