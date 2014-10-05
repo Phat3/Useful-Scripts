@@ -41,8 +41,13 @@ def main(argv):
     #stampiamo la lista definitiva
     for link in linkWithoutDuplicates:
         print link
+    buildRegex(key)
 
-
+def buildRegex(key):
+    regex = ''
+    parts = key.split(".")
+    for part, index in parts:
+        print index
 
 if __name__ == "__main__":
    main(sys.argv[1:])
