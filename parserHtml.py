@@ -50,7 +50,7 @@ def buildRegex(key):
     regex = regex + ".*"
     return re.compile(r'' + regex)
 
-def buldLinkList(links):
+def buildLinkList(links):
     linkList = []
     #ricaviamo la parte di link interessante depurando lla stringa da parti non volute
     for link in links:
