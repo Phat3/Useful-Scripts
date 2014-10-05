@@ -29,18 +29,7 @@ def main(argv):
     regexp = buildRegex(key)
     links = regexp.finditer(html)
     #iniziamo a costruire la nostra lista di link
-    linkList = []
-    #ricaviamo la parte di link interessante depurando lla stringa da parti non volute
-    for link in links:
-       linkPart = link.group().split("/")
-       #ci interessano solo i sottodomini in questo caso
-       linkCorrect = linkPart[2]
-       linkList.append(linkCorrect)
-    #togliamo i doppioni dalla lista
-    linkWithoutDuplicates = set(linkList)
-    #stampiamo la lista definitiva
-    for link in linkWithoutDuplicates:
-        print link
+    buildLinkList(links)
 
 
 #Funzione che restitutisce la regexp corretta ricavandola dalla key immessa
@@ -60,6 +49,20 @@ def buildRegex(key):
     #aggiungiamo la parte finale
     regex = regex + ".*"
     return re.compile(r'' + regex)
+
+def buldLinkList(links):
+    linkList = []
+    #ricaviamo la parte di link interessante depurando lla stringa da parti non volute
+    for link in links:
+       linkPart = link.group().split("/")
+       #ci interessano solo i sottodomini in questo caso
+       linkCorrect = linkPart[2]
+       linkList.append(linkCorrect)
+    #togliamo i doppioni dalla lista
+    linkWithoutDuplicates = set(linkList)
+    #stampiamo la lista definitiva
+    for link in linkWithoutDuplicates:
+        print link
 
 if __name__ == "__main__":
    main(sys.argv[1:])
