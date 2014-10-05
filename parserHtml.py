@@ -9,7 +9,7 @@ def main(argv):
     key = ''
     #ricaviamo le opzioni inserite
     try:
-        opts, argrs = getopt.getopt(argv, 'hu:k', '[help, url, key]')
+        opts, argrs = getopt.getopt(argv, 'hu:k:', '[help, url, key]')
     #se non  metto tutte le opzioni visualizza l'helper(non funzionante)
     except getopt.GetoptError:
         print 'usage : parserHtml.py -u <url> -k <key>'
@@ -26,7 +26,7 @@ def main(argv):
     response = urllib2.urlopen('http://' + url)
     html = response.read()
     #ricaviamo i link all interno della pagina
-    regexp = re.compile(r'http://[^"]*.*cisco\.com.*')
+    regexp = buildRegex(key)
     links = regexp.finditer(html)
     #iniziamo a costruire la nostra lista di link
     linkList = []
@@ -41,13 +41,25 @@ def main(argv):
     #stampiamo la lista definitiva
     for link in linkWithoutDuplicates:
         print link
-    buildRegex(key)
 
+
+#Funzione che restitutisce la regexp corretta ricavandola dalla key immessa
 def buildRegex(key):
-    regex = ''
+    #inizimo dalla regex di base
+    regex = "http://[^\"]*.*"
+    #splittiamo sul punto cosi da poter fare l escape con il \ (nelle regex il . equivale al match di qualsiasi carattere se non ha lescape)
     parts = key.split(".")
-    for part, index in parts:
-        print index
+    #per ogni segmento
+    for index, value in enumerate(parts):
+        #se e l ultimo non mettto il punto con escape
+        if index == (len(parts) - 1):
+            regex = regex + value
+        #a tutti gli altri segmenti ncodo il punto con escape
+        else:
+            regex = regex + value + "\."
+    #aggiungiamo la parte finale
+    regex = regex + ".*"
+    return re.compile(r'' + regex)
 
 if __name__ == "__main__":
    main(sys.argv[1:])
