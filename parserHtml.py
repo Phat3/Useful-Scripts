@@ -29,7 +29,8 @@ def main(argv):
     regexp = buildRegex(key)
     links = regexp.finditer(html)
     #costruiamo la lista giusta senza doppioni
-    buildLinkList(links)
+    linkWithoutDuplicates = buildLinkList(links)
+    doHostCommand(linkWithoutDuplicates)
 
 
 #Funzione che restitutisce la regexp corretta ricavandola dalla key immessa
@@ -62,8 +63,13 @@ def buildLinkList(links):
     #togliamo i doppioni dalla lista
     linkWithoutDuplicates = set(linkList)
     #stampiamo la lista definitiva
-    for link in linkWithoutDuplicates:
-        print link
+    return linkWithoutDuplicates
+
+def doHostCommand(linkList):
+    for link in linkList:
+        command = 'host ' + link
+        a = call(command, shell=True)
+
 
 if __name__ == "__main__":
    main(sys.argv[1:])
