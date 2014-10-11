@@ -2,8 +2,6 @@
 buffer = raw_input('Enter the buffer you want modify: ')
 #which pattern i have to find
 pattern = raw_input('Enter the hex pattern in reverse order: ')
-#replace character in the new buffer
-replace = raw_input('Enter the replace characters: ')
 
 
 #encode in hex the buffer
@@ -17,9 +15,8 @@ else:
     substrigBuffer =  hexbuffer[position : position + 8].decode('hex')
     #get the position of the pattern in string format in old buffer
     position = buffer.find(substrigBuffer)
-    #replace the part with our string
-    newBuffer = "A"*position + "B"*4 +"C"*(len(buffer) - 4 - position)
-    #print out the new buffer
-    print newBuffer
-    print len(newBuffer)
+    #print the formula for the new buffer
+    print '"A"*' + str(position) + ' + "B"*4 +"C"*' + str((len(buffer) - 4 - position))
+
+
 
