@@ -18,7 +18,8 @@ else:
     #get the position of the pattern in string format in old buffer
     position = buffer.find(substrigBuffer)
     #replace the part with our string
-    newBuffer = buffer.replace(substrigBuffer, replace)
+    newBuffer = "A"*position + "B"*4 +"C"*(len(buffer) - 4 - position)
     #print out the new buffer
     print newBuffer
+    print len(newBuffer)
 
