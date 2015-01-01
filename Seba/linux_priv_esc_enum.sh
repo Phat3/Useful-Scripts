@@ -23,7 +23,7 @@ echo_command(){
 }
 
 run_section_commands(){
-    declare -a argAry1=("${!1}")
+    declare -A argAry1=("${!1}")
     for K in "${!argAry1[@]}"; do
         echo $K --- ${argAry1[$K]};
     done
